@@ -1,0 +1,14 @@
+{
+  "name": "authentication",
+  "version": "1.0.0",
+  "description": "fullstack authentication with jwt and cookies documentation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Deven dave and jatin raval",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
