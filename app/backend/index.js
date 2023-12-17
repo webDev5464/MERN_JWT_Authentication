@@ -4,6 +4,9 @@ $server.use(express.json())
 $server.use(express.urlencoded({ extended: true }))
 const authRouter = require("./routers/authRouter")
 
+const cookieParser = require("cookie-parser")
+$server.use(cookieParser())
+
 // dotenv
 require("dotenv").config()
 // database Connection 

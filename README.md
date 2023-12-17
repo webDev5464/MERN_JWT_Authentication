@@ -12,6 +12,8 @@
 - npm install dotenv
 - npm install mongoose
 - npm install bcryptjs
+- npm install cookie-parser
+- npm install jsonwebtoken
 
 ****
 ****
@@ -60,7 +62,7 @@ $server.listen(PORT, () => console.log(`Server Started: http://localhost:${PORT}
 ****
 ****
 
-## 🔺 Create Schema and module
+### 🔺 Create Schema and module
 
 `/modules/authModel.js`
 
@@ -83,7 +85,7 @@ module.exports = authModule
 ****
 ****
 
-## 🔺 post user data in database using `post` method
+### 🔺Register user account
 
 `/controllers/registerUser.js`
 
@@ -122,7 +124,7 @@ module.exports = registerUser
 ****
 ****
 
-## 🔺 Setup router
+### 🔺 Setup router
 
 `/router/authRouter.js`
 
@@ -151,11 +153,14 @@ $server.use("/api/auth", authRouter)
 ```
 
 ****
+****
+
+### 🔺 Using postman with post register data
+
 - Now ready to user register post data from :-
   
   `http://localhost:1080/api/auth/register`
 
-## 🔺 Using postman with post register data
 
 - urlencoded method
 
@@ -173,3 +178,121 @@ $server.use("/api/auth", authRouter)
 ```
 
 ****
+****
+
+### 🔺  Login User
+
+`/controllers/login.js`
+
+```js
+const $authModel = require("../models/authModel")
+const $bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+
+const login = async (req, res) => {
+    let { email, pass, username } = req.body
+    console.log(req.body);
+
+    try {
+        const twoSideLoginUser = await $authModel.findOne({ email }) || await $authModel.findOne({ username })
+        if (!twoSideLoginUser) throw "Enter email or username"
+        if (!pass) throw "Password Required"
+
+        const checkPass = await $bcrypt.compare(pass, twoSideLoginUser.pass)
+        if (!checkPass) throw "Incorrect Password"
+
+        if (twoSideLoginUser && checkPass) {
+            const tokenExpire = 60
+            const setToken = jwt.sign({ id: twoSideLoginUser._id, exp: Math.floor(Date.now() / 1000) + tokenExpire }, "defaultToken")
+
+            res.cookie('token', setToken, { httpOnly: true }).send({
+                process: true,
+                msg: "Login successfully",
+                twoSideLoginUser: await $authModel.findByIdAndUpdate(twoSideLoginUser._id, { setToken })
+            })
+        }
+    } catch (err) {
+        res.send({ process: false, msg: err })
+    }
+}
+
+module.exports = login
+```
+
+**`login.js` require in `authRouter.js`**
+
+`/router/authRouter.js`
+
+```js
+const express = require("express")
+const registerUser = require("../controllers/registerUser")
+const login = require("../controllers/login")
+const tokenVerification = require("../controllers/tokenVerification")
+
+const authRouter = express.Router()
+
+// require registerUser.js
+authRouter.route("/register").post(registerUser)
+
+// require login.js
+authRouter.route("/login").post(login)
+
+module.exports = authRouter
+```
+
+****
+****
+
+### 🔺 Token verification
+
+`/controllers/tokenVerification.js`
+
+```js
+const jwt = require("jsonwebtoken")
+
+const tokenVerification = async (req, res) => {
+    let token = req.cookies.token
+
+    try {
+        let userToken = jwt.verify(token, 'defaultToken')
+
+        if (userToken) {
+            res.send({
+                process: true,
+                msg: "Valid User",
+                id: userToken._id
+            })
+        } else throw "Invalid Token"
+    } catch (err) {
+        res.send({
+            process: false, msg: err
+        })
+    }
+}
+
+module.exports = tokenVerification
+```
+
+**`tokenVerification.js` require in `authRouter.js`**
+
+`/router/authRouter.js`
+
+```js
+const express = require("express")
+const registerUser = require("../controllers/registerUser")
+const login = require("../controllers/login")
+const tokenVerification = require("../controllers/tokenVerification")
+
+const authRouter = express.Router()
+
+// require registerUser.js
+authRouter.route("/register").post(registerUser)
+
+// require login.js
+authRouter.route("/login").post(login)
+
+// token verification
+authRouter.route("/token").get(tokenVerification)
+
+module.exports = authRouter
+```
