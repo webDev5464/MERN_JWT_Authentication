@@ -6,13 +6,11 @@
 }
 
 :root {
-  --mainBg: #303443;
-  --success: #74e074;
+  /* --mainBg: #303443; */
+  --mainBg: white;
   --darkGray: #414141;
-}
-
-.success {
-  background-color: var(--success);
+  --shadowWhite: rgba(255, 255, 255, 0.345);
+  --shadowGray: rgba(128, 128, 128, 0.5);
 }
 
 body {
@@ -20,20 +18,39 @@ body {
   user-select: none;
 }
 
+main {
+  padding: 60px 10px 10px 10px;
+}
+
+a {
+  color: white;
+}
+
+.active {
+  /* color: tomato; */
+  box-shadow: 2px 2px 4px var(--shadowWhite),
+  inset 2px 2px 4px var(--shadowWhite);
+}
+
 /* ==================== */
 /*! Register Form  */
 
 .formParent {
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   align-items: center;
   justify-content: center;
+  position: fixed;
+  top: 20%;
+  left: 35%;
 }
 
 .formCard {
   background-color: white;
   border-radius: 10px;
-  box-shadow: inset 0 0 10px black;
+  /* box-shadow: inset 0 0 10px black; */
+  box-shadow: 5px 5px 7px var(--shadowGray),
+    inset 5px 5px 7px var(--shadowGray);
 }
 
 .formCard>h2 {
@@ -50,7 +67,12 @@ body {
 }
 
 .formCard input {
-  padding: 3px;
+  padding: 4px 3px;
+  border-radius: 4px;
+  border: none;
+  box-shadow: 2px 2px 3px var(--shadowGray),
+    inset 2px 2px 3px var(--shadowGray);
+  outline: none;
 }
 
 .formCard label {
@@ -82,7 +104,11 @@ body {
 }
 
 .parentBtn>input {
-  border: 2px solid var(--darkGray);
+  /* border: 2px solid var(--darkGray); */
+  border: none;
+  background-color: white;
+  box-shadow: 2px 2px 3px var(--shadowGray),
+    inset 2px 2px 3px var(--shadowGray);
   font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
@@ -97,16 +123,98 @@ body {
 /*! Navigation */
 
 nav {
-  background-color: var(--darkGray);
+  /* background-color: var(--darkGray); */
+  background-color: black;
   color: white;
-  padding: 5px 50px;
+  padding: 10px 50px;
   position: fixed;
   top: 0;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 nav h2 {
   font-size: 20px;
+  color: wheat;
+}
+
+.authNav {
+  display: flex;
+  align-items: center;
+}
+
+.authNav ul {
+  display: flex;
+  align-items: center;
+  margin: 0 0 0 50px;
+}
+
+.authNav ul li {
+  list-style: none;
+  margin: 0 20px;
+}
+
+.authNav ul li a {
+  text-decoration: none;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 7px;
+}
+
+.headingAndLogo {
+  display: flex;
+  align-items: baseline;
+}
+
+.navBtnParent {
+  position: relative;
+}
+
+.navBtn {
+  /* background-color: var(--darkGray); */
+  color: wheat;
+  background-color: black;
+  padding: 5px 10px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 3px var(--shadowWhite),
+    inset 2px 2px 3px var(--shadowWhite);
+  cursor: pointer;
+}
+
+.navBtn:active {
+  scale: .95;
+}
+
+.navBtnContent {
+  position: absolute;
+  bottom: -80px;
+  border-radius: 10px;
+  background-color: var(--mainBg);
+  box-shadow: 2px 2px 3px var(--shadowGray),
+    inset 2px 2px 3px var(--shadowGray);
+  width: 100%;
+  padding: 10px;
+}
+
+.navBtnContent ul li {
+  list-style: none;
+  text-align: center;
+}
+
+.navBtnContent ul li:first-child {
+  margin-bottom: 7px;
+}
+
+.navBtnContent ul li a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.navBtnContent ul li:active {
+  scale: .95;
 }
 
 /* ==================== */

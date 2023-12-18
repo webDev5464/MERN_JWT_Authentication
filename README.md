@@ -5,10 +5,14 @@
 #### 🔺 Frontend
 - npm create vite
 - npm install
+- npm install react-router-dom
+- npm install axios
+- npm install react-icons
 
 #### 🔺 backend
 - npm init
 - npm install express
+- npm install cors
 - npm install dotenv
 - npm install mongoose
 - npm install bcryptjs
@@ -46,7 +50,9 @@ module.exports = async URL => await require("mongoose")
 
 ```js
 const express = require("express")
+const cors = require("cors")
 const $server = express()
+$server.use(cors())
 $server.use(express.json())
 $server.use(express.urlencoded({ extended: true }))
 
@@ -101,8 +107,10 @@ const registerUser = async (req, res) => {
     try {
         if (existingEmail) throw "This email is already exist"
         if (existingUsername) throw "This username is already exist"
+        if (!username) throw "Username is require"
+        if (!email) throw "Email is require"
         if (!pass) throw "Password is required"
-        if (!conPass) throw "Also require confirm password"
+        if (!conPass) throw "Confirm password is require"
         if (pass !== conPass) throw "Does not match password and confirm password"
 
         if (username, email, pass) {

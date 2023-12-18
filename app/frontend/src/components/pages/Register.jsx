@@ -1,9 +1,12 @@
 export default function Register() {
+  const formHandler = (e) => {
+    e.preventDefault()
+  }
   return (
     <section className="formParent">
       <div className="formCard">
         <h2>Account Register</h2>
-        <form>
+        <form onSubmit={formHandler}>
           <div className="inputDiv">
             <label htmlFor="username">Username</label>
             <input type="text" name="username" id="username" />
@@ -26,7 +29,7 @@ export default function Register() {
           </div>
 
           <div className="parentBtn">
-            <input type="submit" value="Register" className="success" />
+            <input type="submit" value="Register" />
           </div>
         </form>
       </div>
