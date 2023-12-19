@@ -8,6 +8,7 @@
 - npm install react-router-dom
 - npm install axios
 - npm install react-icons
+- npm install react-toastify
 
 #### 🔺 backend
 - npm init
@@ -18,6 +19,9 @@
 - npm install bcryptjs
 - npm install cookie-parser
 - npm install jsonwebtoken
+- npm install multer
+- npm install cloudinary
+- npm install multer-storage-cloudinary
 
 ****
 ****

@@ -1,17 +1,18 @@
 import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import ProtectedRoute from './components/modules/ProtectedRoute'
 import Home from './components/pages/Home'
 import About from './components/pages/About'
 import Register from './components/pages/Register'
 import Login from './components/pages/Login'
 import Navigation from './components/modules/Navigation'
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
-  const [isUser, setIsUser] = useState(true)
+  const [isUser, setIsUser] = useState(false)
   return (
-    <Router>
-
+    <>
       <header>
         <Navigation />
       </header>
@@ -34,6 +35,9 @@ export default function App() {
         </Routes>
       </main>
 
-    </Router >
+      <footer>
+        <ToastContainer />
+      </footer>
+    </>
   )
 }

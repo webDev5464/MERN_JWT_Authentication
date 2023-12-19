@@ -1,6 +1,8 @@
+import { useState } from "react"
 import { Link, NavLink } from "react-router-dom"
 
 export default function Navigation() {
+  const [activeNavBtn, setActiveNavBtn] = useState(true)
   return (
     <nav>
       <section className="authNav">
@@ -15,17 +17,17 @@ export default function Navigation() {
       </section>
 
       <section className="navBtnParent">
-        <div className="navBtn">
+        <div className="navBtn" onClick={() => setActiveNavBtn(!activeNavBtn)}>
           Login And Register
         </div>
 
-        <div className="navBtnContent">
+        <div className={activeNavBtn ? "navBtnContent none" : "navBtnContent block"}>
           <ul>
             <li>
-              <Link to={'login'}>Login</Link>
+              <Link to={'login'} onClick={() => setActiveNavBtn(!activeNavBtn)}>Login</Link>
             </li>
             <li>
-              <Link to={'register'}>Register</Link>
+              <Link to={'register'} onClick={() => setActiveNavBtn(!activeNavBtn)}>Register</Link>
             </li>
           </ul>
         </div>
