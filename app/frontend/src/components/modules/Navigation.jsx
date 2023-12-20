@@ -1,8 +1,8 @@
-import { useState } from "react"
+import { useContext } from "react"
 import { Link, NavLink } from "react-router-dom"
+import { GlobProvider } from "../../contexts/GlobContext"
 
 export default function Navigation() {
-  const [activeNavBtn, setActiveNavBtn] = useState(true)
   return (
     <nav>
       <section className="authNav">
@@ -17,6 +17,24 @@ export default function Navigation() {
       </section>
 
       <section className="navBtnParent">
+        <NavBtnParent />
+      </section>
+    </nav>
+  )
+}
+
+const NavBtnParent = () => {
+  const { isUser, activeNavBtn, setActiveNavBtn, logout } = useContext(GlobProvider)
+
+  if (isUser) {
+    return (
+      <>
+        <div className="navBtn" onClick={logout}>Logout</div>
+      </>
+    )
+  } else {
+    return (
+      <>
         <div className="navBtn" onClick={() => setActiveNavBtn(!activeNavBtn)}>
           Login And Register
         </div>
@@ -31,7 +49,7 @@ export default function Navigation() {
             </li>
           </ul>
         </div>
-      </section>
-    </nav>
-  )
+      </>
+    )
+  }
 }

@@ -1,7 +1,7 @@
 const express = require("express")
 const registerUser = require("../controllers/registerUser")
 const login = require("../controllers/login")
-const tokenVerification = require("../controllers/tokenVerification")
+const { tokenVerification, logout } = require("../controllers/tokenVerification")
 const { upload } = require("../configs/multer")
 
 const authRouter = express.Router()
@@ -14,5 +14,8 @@ authRouter.route("/login").post(login)
 
 // token verification
 authRouter.route("/token").get(tokenVerification)
+
+// logout
+authRouter.route("/logout").post(logout)
 
 module.exports = authRouter

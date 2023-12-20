@@ -4,11 +4,10 @@ const jwt = require("jsonwebtoken")
 
 const login = async (req, res) => {
     let { email, pass, username } = req.body
-    console.log(req.body);
 
     try {
         const twoSideLoginUser = await $authModel.findOne({ email }) || await $authModel.findOne({ username })
-        if (!twoSideLoginUser) throw "Enter email or username"
+        if (!twoSideLoginUser) throw "User Not Found"
         if (!pass) throw "Password Required"
 
         const checkPass = await $bcrypt.compare(pass, twoSideLoginUser.pass)
@@ -16,12 +15,12 @@ const login = async (req, res) => {
 
         if (twoSideLoginUser && checkPass) {
             const tokenExpire = 60
-            const setToken = jwt.sign({ id: twoSideLoginUser._id, exp: Math.floor(Date.now() / 1000) + tokenExpire }, "defaultToken")
-
+            const setToken = jwt.sign({ id: twoSideLoginUser._id, exp: Math.floor(Date.now() / 1000) + tokenExpire }, "newToken")
             res.cookie('token', setToken, { httpOnly: true }).send({
                 process: true,
                 msg: "Login successfully",
-                twoSideLoginUser: await $authModel.findByIdAndUpdate(twoSideLoginUser._id, { setToken })
+                $authModel: await $authModel.findByIdAndUpdate($authModel._id, { setToken }),
+                userInfo: twoSideLoginUser
             })
         }
     } catch (err) {
@@ -29,4 +28,4 @@ const login = async (req, res) => {
     }
 }
 
-module.exports = login
+module.exports = login 

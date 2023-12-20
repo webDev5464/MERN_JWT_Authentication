@@ -9,6 +9,7 @@
 - npm install axios
 - npm install react-icons
 - npm install react-toastify
+- npm install js-cookie
 
 #### 🔺 backend
 - npm init

@@ -17,13 +17,5 @@ require("./configs/databaseConnection")(process.env.DATABASE)
 // authentication router
 $server.use("/api/auth", authRouter)
 
-const serverStart = (PORT) => {
-  try {
-    $server.listen(PORT, () => console.log(`Server Started: http://localhost:${PORT}`))
-  } catch (err) {
-    console.error(err);
-    process.exit()
-  }
-}
-
-serverStart(process.env.PORT)
+$server.listen(process.env.PORT,
+  () => console.log(`Server Started: http://localhost:${process.env.PORT}`))
