@@ -42,7 +42,7 @@ export default function Login({ userPermission }) {
   return (
     <section className="formParent">
       <div className="formCard">
-        <h2>Account Register</h2>
+        <h2>Account Login</h2>
         <form onSubmit={formHandler}>
           <div className="inputDiv">
             <label htmlFor="usernameAndEmail">Username or Email</label>

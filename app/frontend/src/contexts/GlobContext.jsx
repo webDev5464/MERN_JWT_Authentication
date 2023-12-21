@@ -14,14 +14,13 @@ export default function GlobContext({ children }) {
 
   const verifyUser = async () => {
     const result = await axios.get("/api/auth/token")
+    console.log(result);
     if (result.data.process) {
       setIsUser(result.data.process)
     } else {
       localStorage.removeItem("userInfo")
     }
-    console.log(result.data);
   }
-  // localStorage.removeItem("userInfo")
 
   useEffect(() => {
     verifyUser()
@@ -40,7 +39,6 @@ export default function GlobContext({ children }) {
     })
 
     localStorage.removeItem("userInfo")
-    navigate('/login')
     setIsUser(false)
   }
 

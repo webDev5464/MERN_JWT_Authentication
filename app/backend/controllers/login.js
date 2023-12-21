@@ -14,12 +14,12 @@ const login = async (req, res) => {
         if (!checkPass) throw "Incorrect Password"
 
         if (twoSideLoginUser && checkPass) {
-            const tokenExpire = 60
+            const tokenExpire = 300
             const setToken = jwt.sign({ id: twoSideLoginUser._id, exp: Math.floor(Date.now() / 1000) + tokenExpire }, "newToken")
             res.cookie('token', setToken, { httpOnly: true }).send({
                 process: true,
                 msg: "Login successfully",
-                $authModel: await $authModel.findByIdAndUpdate($authModel._id, { setToken }),
+                $authModel: await $authModel.findOneAndUpdate({ username: twoSideLoginUser.username }, { token: setToken }),
                 userInfo: twoSideLoginUser
             })
         }

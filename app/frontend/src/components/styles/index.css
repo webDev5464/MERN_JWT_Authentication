@@ -32,16 +32,22 @@ a {
 }
 
 .active {
-  /* color: tomato; */
   box-shadow: 2px 2px 4px var(--shadowWhite),
     inset 2px 2px 4px var(--shadowWhite);
+}
+
+.none {
+  display: none;
+}
+
+.block {
+  display: block;
 }
 
 /* ==================== */
 /*! Register Form  */
 
 .formParent {
-  /* height: 100vh; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,7 +60,6 @@ a {
   background-color: var(--mainBg);
   color: var(--white);
   border-radius: 10px;
-  /* box-shadow: inset 0 0 10px black; */
   box-shadow: 3px 3px 5px var(--shadowGray),
     inset 3px 3px 5px var(--shadowGray);
 }
@@ -112,7 +117,6 @@ a {
 }
 
 .parentBtn>input {
-  /* border: 2px solid var(--darkGray); */
   border: none;
   background-color: var(--mainBg);
   color: var(--goldDark);
@@ -128,11 +132,27 @@ a {
   scale: .95;
 }
 
+.formParent .avatar label {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.formParent .avatar img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.formParent .avatar input[type='file'] {
+  display: none;
+}
+
 /* ==================== */
 /*! Navigation */
 
 nav {
-  /* background-color: var(--darkGray); */
   background-color: black;
   color: var(--white);
   padding: 10px 50px 12px 50px;
@@ -183,7 +203,6 @@ nav h2 {
 }
 
 .navBtn {
-  /* background-color: var(--darkGray); */
   color: var(--goldDark);
   background-color: var(--mainBg);
   padding: 5px 10px;
@@ -228,43 +247,36 @@ nav h2 {
 }
 
 /* ==================== */
-/*! message component */
+/*! page components */
 
-.messageParent {
-  position: fixed;
-  top: 33px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 50px;
-  background-color: rgba(94, 43, 43, 0.448);
-  color: white;
+.userCard {
+  width: fit-content;
+  box-shadow: 3px 3px 3px var(--shadowWhite),
+    inset 3px 3px 3px var(--shadowWhite);
+  border-radius: 10px;
 }
 
-.defaultParentComponent {
-  position: relative;
+.userCardHeading {
+  background-color: var(--darkGray);
+  color: var(--goldDark);
+  border-radius: 10px 10px 0 0;
+  padding: 10px;
 }
 
-.none {
-  display: none;
-}
-
-.block {
-  display: block;
-}
-
-.formParent .avatar label{
-  width: 100px;
-  height: 100px;
+.userCard img {
   border-radius: 50%;
-  overflow: hidden;
 }
-.formParent .avatar img {
-height: 100%;
-width: 100%;
-object-fit: cover;
 
+.cardInformation {
+  padding: 10px;
 }
-.formParent .avatar input[type='file']{
-  display: none;
+
+.cardInformation p {
+  font-size: 25px;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 10px 0;
 }
