@@ -207,7 +207,7 @@ const login = async (req, res) => {
     console.log(req.body);
 
     try {
-        const twoSideLoginUser = await $authModel.findOne({ email }) || await $authModel.findOne({ username })
+        const twoSideLoginUser = await $authModel.findOne({ email, username })        
         if (!twoSideLoginUser) throw "Enter email or username"
         if (!pass) throw "Password Required"
 
